@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+<meta charset=utf-8>
+<title>test</title>
+<meta name=color-scheme content="dark light">
+<meta name=viewport content=width=device-width,initial-scale=1.0>
+<script src=anim_dump.js></script>
+</head>
+<body>
+<h1>test</h1>
+<label for="img-select-file">Upload images:</label>
+<input type=file id="img-select-file" accept="image/webp" />
+<script>
+async function wrapper() {
+	var fileInput=document.getElementById("img-select-file")
+	var imgArrayBuf=await fileInput.files[0].arrayBuffer()
+	var printLog='';
+	const module = {
+		arguments: ["input.webp"],
+		preRun: () => {
+			module.FS.writeFile("input.webp", new Uint8Array(imgArrayBuf));
+		},
+		postRun: () => {
+			let output = module.FS.readFile("dump_0000.png", {encoding: "binary"});
+			download(new File([output], fileInput.files[0].name+"-output.png"))
+			let output2 = module.FS.readFile("dump_0001.png", {encoding: "binary"});
+			download(new File([output2], fileInput.files[0].name+"-output2.png"))
+		},
+	};
+	await AnimDump(module);
+}
+document.querySelector("input#img-select-file").addEventListener("change", wrapper)
+
+function download(file) {
+	const link = document.createElement('a')
+	const url = URL.createObjectURL(file)
+	
+	link.href = url
+	link.download = file.name
+	document.body.appendChild(link)
+	link.click()
+	
+	document.body.removeChild(link)
+	window.URL.revokeObjectURL(url)
+}
+</script>

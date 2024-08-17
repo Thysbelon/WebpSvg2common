@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+<meta charset=utf-8>
+<title>test</title>
+<meta name=color-scheme content="dark light">
+<meta name=viewport content=width=device-width,initial-scale=1.0>
+<script src=webpinfo.js></script>
+</head>
+<body>
+<h1>test</h1>
+<label for="img-select-file">Upload images:</label>
+<input type=file id="img-select-file" accept="image/webp" />
+<script>
+async function wrapper() {
+	var fileInput=document.getElementById("img-select-file")
+	var imgArrayBuf=await fileInput.files[0].arrayBuffer()
+	var printLog='';
+	const module = {
+		arguments: ["input.webp"],
+		preRun: () => {
+			module.FS.writeFile("input.webp", new Uint8Array(imgArrayBuf));
+		},
+		postRun: () => {
+			console.log(printLog);
+		},
+		print: function(text) {
+			printLog+=text+'\n';
+		}
+	};
+	await WebpInfo(module);
+}
+document.querySelector("input#img-select-file").addEventListener("change", wrapper)
+</script>

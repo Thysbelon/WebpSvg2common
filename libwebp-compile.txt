@@ -1,0 +1,6 @@
+cd libwebp
+mkdir build-emscripten
+cd build-emscripten
+embuilder build libpng
+emcmake cmake .. -DTHYSBE_WEBP2COMMON=1
+emmake make
