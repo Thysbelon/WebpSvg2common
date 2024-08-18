@@ -7,11 +7,23 @@
 <script src=webpinfo.js></script>
 <script src=anim_dump.js></script>
 <script src=index.js></script>
+<style>
+body{
+	max-width:43rem;
+	margin-left:auto;
+	margin-right:auto;
+}
+</style>
 </head>
 <body>
 <h1>WebpSvg2common</h1>
-<label for="img-select-file">Upload images:</label>
+<p>This webapp takes WEBP and SVG files as input and converts them into PNG files; animated WEBP will be converted into animated GIF.
+<p>If you notice any problems with conversion, please <a href=https://github.com/Thysbelon/WebpSvg2common/issues>open a new issue</a> on WebpSvg2common's GitHub repository, and attach a copy of the input (WEBP or SVG) file that did not convert successfully.
+<hr>
+<p><label for="img-select-file">Upload images:</label>
 <input type=file id="img-select-file" accept="image/webp,image/svg+xml" multiple />
+<hr>
+<p><a href=https://github.com/Thysbelon/WebpSvg2common>GitHub repository</a>
 <script>
 function wrapper() {
 	var fileInput=document.getElementById("img-select-file")

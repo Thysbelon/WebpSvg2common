@@ -1,6 +1,6 @@
-# WebpSvg2common
+# [WebpSvg2common](https://thysbelon.github.io/WebpSvg2common/)
 
-A webapp to make converting webp and svg files to png and gif easy.
+A webapp to make converting WEBP and SVG files to PNG and GIF easy.
 
 ## Credits
 
